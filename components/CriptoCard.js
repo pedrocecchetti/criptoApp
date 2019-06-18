@@ -35,9 +35,10 @@ const styles = StyleSheet.create({
     	    width: 0,
 	        height: 9,
         },
-        shadowOpacity: 0.48,
-        shadowRadius: 11.95,
+        shadowOpacity: 0.90,
+        shadowRadius: 8.95,
         elevation: 18,
+        borderRadius: 10
     },
 
     // CARD TOP
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
     cardSymbol: {
         fontSize: 22,
         textAlign: 'right',
-        fontWeight: '900' 
+        fontWeight: '900',
+        color: '#ffc005'
     },
     
     cardTitleContainer: {
@@ -83,7 +85,8 @@ const styles = StyleSheet.create({
     cardPrice: {
         textAlign: 'right',
         fontSize: 16,
-        fontFamily: 'helvetica'
+        fontFamily: 'helvetica',
+        fontWeight: '900'
     },
 
     cardDateContainer: {
