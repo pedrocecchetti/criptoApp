@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
+import Moment from 'moment'
+
+Moment.locale('br')
 
 const CriptoCard = (props) => {
       return (
@@ -14,7 +17,7 @@ const CriptoCard = (props) => {
             </View>
             <View style={styles.cardBottom}>
                 <View style={styles.cardDateContainer}>
-                    <Text style={styles.cardDate}>{props.last_updated}</Text>
+                    <Text style={styles.cardDate}>{Moment(props.last_updated).format('DD MMM YYYY')}</Text>
                 </View>
                 <View style={styles.cardPriceContainer}>
                     <Text style={styles.cardPrice}>USD {props.price}</Text>
