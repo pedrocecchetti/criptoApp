@@ -7,13 +7,11 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, ScrollView, ActivityIndicator, View} from 'react-native';
-import CriptoCard from './components/CriptoCard';
+import {StyleSheet, ScrollView, ActivityIndicator, RefreshControl, View} from 'react-native';
+import CriptoCard from './components/CriptoCard/CriptoCard';
 
 let criptocards = false
  
-
-
 if (!criptocards) {
   criptocards =  "NOT ABLE TO REACH API"
 }
@@ -25,7 +23,8 @@ export default class App extends Component<Props> {
     super(props);
     this.state = {
       loading: true,
-      dataSource:[]
+      dataSource:[],
+      refreshing: false,
      };
    }
   
@@ -40,12 +39,27 @@ export default class App extends Component<Props> {
     })
     .catch(error=>console.log(error)) //to catch the errors if any
     }
+
+    _onRefresh = () => {
+      this.setState({refreshing: true});
+      fetch('http://localhost:3000/api/v1/updatedatabase').then(() => {
+        fetch("http://localhost:3000/api/v1/criptoinfo")
+        .then(response => response.json())
+        .then((responseJson)=> {
+          this.setState({
+            dataSource: responseJson.data
+          })
+        })
+        this.setState({refreshing: false});
+      });
+    };
+  
     
   render() {
     if(this.state.loading){
       return( 
         <View style={styles.loader}> 
-          <ActivityIndicator size="large" color="#0c9"/>
+          <ActivityIndicator size="large" color="#00f"/>
         </View>
     )}
 
@@ -56,7 +70,7 @@ export default class App extends Component<Props> {
           return <CriptoCard 
           name={cripto.name}
           symbol={cripto.symbol}
-          price={cripto.price}
+          price={cripto.price}  
           last_updated={cripto.last_updated}
           key={cripto.api_id}/>
           })
@@ -65,7 +79,13 @@ export default class App extends Component<Props> {
     )
 
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.container}
+        refreshControl={
+        <RefreshControl
+          refreshing={this.state.refreshing}
+          enabled={true}
+          onRefresh={this._onRefresh}/>
+        }>
         {criptocards}
       </ScrollView>
     );
