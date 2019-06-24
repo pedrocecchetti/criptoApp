@@ -18,9 +18,10 @@ const CriptoCard = (props) => {
             <View style={styles.cardBottom}>
                 <View style={styles.cardDateContainer}>
                     <Text style={styles.cardDate}>{Moment(props.last_updated).format('DD MMM YYYY')}</Text>
+                    <Text style={styles.cardDate}>{Moment(props.last_updated).format('HH:MM')}</Text>
                 </View>
                 <View style={styles.cardPriceContainer}>
-                    <Text style={styles.cardPrice}>USD {props.price}</Text>
+                    <Text style={styles.cardPrice}>USD {parseFloat(props.price).toFixed(4)}</Text>
                 </View>
             </View>
         </View>
@@ -32,7 +33,7 @@ const styles = StyleSheet.create({
         margin: 7,
         flex: 1,
         padding: 10,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#444444',
         shadowColor: "#000",
         shadowOffset: {
     	    width: 0,
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.90,
         shadowRadius: 8.95,
         elevation: 18,
-        borderRadius: 10
+        borderRadius: 10,
     },
 
     // CARD TOP
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
       fontSize: 19,
       fontWeight: 'bold',
       margin: 10,
-      color: '#34a34e',
+      color: '#84ff82',
       textAlign: 'left'
     },
     
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'right',
         fontWeight: '900',
-        color: '#ffc005'
+        color: '#478dff',
     },
     
     cardTitleContainer: {
@@ -82,14 +83,15 @@ const styles = StyleSheet.create({
     },
 
     cardDate: {
-
+        color: '#cdcdcd'
     },
 
     cardPrice: {
         textAlign: 'right',
         fontSize: 16,
         fontFamily: 'helvetica',
-        fontWeight: '900'
+        fontWeight: '900',
+        color: '#cdcdcd'
     },
 
     cardDateContainer: {
