@@ -42,12 +42,14 @@ export default class App extends Component<Props> {
 
     _onRefresh = () => {
       this.setState({refreshing: true});
-      fetch('http://localhost:3000/api/v1/updatedatabase').then(() => {
-        fetch("http://localhost:3000/api/v1/criptoinfo")
+      fetch('http://localhost:3000/api/v1/updatedatabase').then( response => {
+        this.setState({updated: response})
+        fetch('http://localhost:3000/api/v1/criptoinfo')
         .then(response => response.json())
         .then((responseJson)=> {
           this.setState({
-            dataSource: responseJson.data
+            dataSource: responseJson.data,
+            loading: false
           })
         })
         this.setState({refreshing: false});
@@ -95,7 +97,7 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#acacac',
+    backgroundColor: '#202020',
   },
   loader: {
     flex: 1,
